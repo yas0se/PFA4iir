@@ -1,0 +1,205 @@
+<!-- Multi-Category Card -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0pt"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Card Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Score the top PCs &amp; Accessories"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <!-- Card Body - Horizontal ScrollView for categories -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Desktop Category -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Image taking full space -->
+                        <ImageView
+                            android:id="@+id/categoryImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/model"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Hard Drives"/>
+
+                        <!-- Text positioned at bottom left -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hard Drives"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:background="#80000000"
+                            android:padding="2dp"
+                            android:layout_alignBottom="@id/categoryImage"
+                            android:layout_alignLeft="@id/categoryImage"
+                            android:layout_margin="4dp"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Laptop Category -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Image taking full space -->
+                        <ImageView
+                            android:id="@+id/categoryImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/model"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Hard Drives"/>
+
+                        <!-- Text positioned at bottom left -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hard Drives"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:background="#80000000"
+                            android:padding="2dp"
+                            android:layout_alignBottom="@id/categoryImage"
+                            android:layout_alignLeft="@id/categoryImage"
+                            android:layout_margin="4dp"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Hard Drives Category -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Image taking full space -->
+                        <ImageView
+                            android:id="@+id/categoryImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/model"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Hard Drives"/>
+
+                        <!-- Text positioned at bottom left -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hard Drives"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:background="#80000000"
+                            android:padding="2dp"
+                            android:layout_alignBottom="@id/categoryImage"
+                            android:layout_alignLeft="@id/categoryImage"
+                            android:layout_margin="4dp"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- PC Accessories Category -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Image taking full space -->
+                        <ImageView
+                            android:id="@+id/categoryImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/model"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Hard Drives"/>
+
+                        <!-- Text positioned at bottom left -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hard Drives"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:background="#80000000"
+                            android:padding="2dp"
+                            android:layout_alignBottom="@id/categoryImage"
+                            android:layout_alignLeft="@id/categoryImage"
+                            android:layout_margin="4dp"/>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Card Footer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                android:textSize="14sp"
+                android:textColor="@color/blue"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
