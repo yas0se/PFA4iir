@@ -10,5 +10,7 @@
     <color name="yellow2">#FEBD69</color>
     <color name="yellow3">#F08804</color>
     <color name="blue">#2162A1</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#d9534f</color>
 
 </resources>

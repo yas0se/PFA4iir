@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- item_product.xml -->
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Product Flags (Promo/Discount) -->
+        <LinearLayout
+            android:id="@+id/promoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"> <!-- Masqué par défaut -->
+
+            <TextView
+                android:id="@+id/promoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/etoiles"
+                android:background="@color/red"
+                android:textColor="@color/white"
+                android:padding="2dp"
+                android:textSize="16sp"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/discountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:textColor="@color/white"
+                android:padding="2dp"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Reste du layout (identique à votre code) -->
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="Product image"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- ... (autres éléments) ... -->
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
