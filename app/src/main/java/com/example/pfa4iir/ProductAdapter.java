@@ -5,8 +5,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +46,38 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         holder.productTitle.setText(product.getName());
         holder.productPrice.setText(product.getPrice());
+
+        // Disponibilité
+        if (product.isAvailable()) {
+            holder.productAvailability.setVisibility(View.VISIBLE);
+            holder.productAvailability1.setVisibility(View.GONE);
+        } else {
+            holder.productAvailability.setVisibility(View.GONE);
+            holder.productAvailability1.setVisibility(View.VISIBLE);
+        }
+
+        // Promo / Réduction
+        boolean hasPromo = product.getPromoText() != null && !product.getPromoText().isEmpty();
+        boolean hasDiscount = product.getDiscountText() != null && !product.getDiscountText().isEmpty();
+
+        if (hasPromo || hasDiscount) {
+            holder.promoText.setText(product.getPromoText());
+            holder.discountText.setText(product.getDiscountText());
+            holder.promoText.setVisibility(hasPromo ? View.VISIBLE : View.GONE);
+            holder.discountText.setVisibility(hasDiscount ? View.VISIBLE : View.GONE);
+            holder.itemView.findViewById(R.id.promoContainer).setVisibility(View.VISIBLE);
+        } else {
+            holder.itemView.findViewById(R.id.promoContainer).setVisibility(View.GONE);
+        }
+
+        // Boutons (fonctionnalité à implémenter plus tard)
+        holder.addToCartButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Ajouté au panier : " + product.getName(), Toast.LENGTH_SHORT).show();
+        });
+
+        holder.quickViewButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Aperçu rapide : " + product.getName(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -60,12 +94,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productTitle, productPrice;
+        TextView promoText, discountText, productAvailability, productAvailability1;
+        Button addToCartButton, quickViewButton;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);
             productTitle = itemView.findViewById(R.id.productTitle);
             productPrice = itemView.findViewById(R.id.productPrice);
+            productAvailability = itemView.findViewById(R.id.productAvailability);
+            productAvailability1 = itemView.findViewById(R.id.productAvailability1);
+            promoText = itemView.findViewById(R.id.promoText);
+            discountText = itemView.findViewById(R.id.discountText);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            quickViewButton = itemView.findViewById(R.id.quickViewButton);
         }
+
     }
 }

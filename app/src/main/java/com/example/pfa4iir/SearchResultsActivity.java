@@ -34,6 +34,10 @@ public class SearchResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_results);
 
         // Initialize views
+        String initialQuery = getIntent().getStringExtra("search_query");
+        Toast.makeText(this, "testtttt: " + initialQuery, Toast.LENGTH_SHORT).show();
+
+
         recyclerView = findViewById(R.id.productsRecyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         searchInput = findViewById(R.id.navSearchKeywords);
@@ -44,13 +48,15 @@ public class SearchResultsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));  // Fixed context reference
         recyclerView.setAdapter(adapter);
 
+        Log.i("query è--è--è--: ", searchInput.getText().toString());
+
 // Initial search
-        searchProducts("ordinateur");  // Removed named parameter (query:)
+        searchProducts(searchInput.getText().toString());  // Removed named parameter (query:)
 
 // Button de recherche
         searchButton.setOnClickListener(v -> {
             String query = searchInput.getText().toString();
-            if (!query.isEmpty()) {
+            if (!searchInput.getText().toString().isEmpty()) {
                 searchProducts(query);
             }
         });
@@ -95,20 +101,8 @@ public class SearchResultsActivity extends AppCompatActivity {
         });
     }
 
-
     private void showToast(String message) {
         Toast.makeText(SearchResultsActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupRecyclerView(List<ProductItem> products) {
-        runOnUiThread(() -> {
-            if (adapter == null) {
-                adapter = new ProductAdapter(products, SearchResultsActivity.this);
-                recyclerView.setLayoutManager(new GridLayoutManager(SearchResultsActivity.this, 2));
-                recyclerView.setAdapter(adapter);
-            } else {
-                adapter.updateProducts(products);
-            }
-        });
-    }
 }

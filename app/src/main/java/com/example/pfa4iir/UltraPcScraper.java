@@ -17,8 +17,8 @@ public class UltraPcScraper {
 
     public static List<ProductItem> scrapeProducts(String searchQuery) throws IOException {
         List<ProductItem> products = new ArrayList<>();
-        String url = "https://ultrapc.ma/recherche?controller=search&s=" +
-                URLEncoder.encode(searchQuery, "UTF-8");
+        String query=URLEncoder.encode(searchQuery, "UTF-8");
+        String url = "https://ultrapc.ma/recherche?controller=search&s=" + query;
 
         Log.i(TAG, "═════════ STARTING SCRAPE ═════════");
 
@@ -31,8 +31,8 @@ public class UltraPcScraper {
                 Log.w(TAG,"vavavalueeeee: 1111111111");
 
                 // Connect directly with Jsoup
-                //Document doc = Jsoup.connect(url)
-                Document doc = Jsoup.connect("https://www.ultrapc.ma/recherche?controller=search&s=cpu")
+                Document doc = Jsoup.connect(url)
+//                Document doc = Jsoup.connect("https://www.ultrapc.ma/recherche?controller=search&s=cpu")
                         .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
                         .timeout(6000)
                         .get();
@@ -40,7 +40,6 @@ public class UltraPcScraper {
 
                 Elements productElements = doc.select("article.product-miniature");
 
-                Log.w(TAG,"vavavalueeeee: "+ String.valueOf(productElements));
                 if (productElements.isEmpty()) {
                     Log.w(TAG, "No products found using primary selector");
                     productElements = doc.select("div.js-product-miniature, div.product-container");
@@ -52,9 +51,9 @@ public class UltraPcScraper {
                     try {
                         // Extract product name (handle truncated names)
                         String name = product.select("h3.product-title a").text();
-                        if (name.contains("...")) {
-                            name = product.select("h3.product-title a").attr("title");
-                        }
+//                        if (name.contains("...")) {
+//                            name = product.select("h3.product-title a").attr("title");
+//                        }
 
                         // Extract price (handle both displayed price and content attribute)
                         String price = product.select("span.price").text();
@@ -86,9 +85,12 @@ public class UltraPcScraper {
                             productUrl = "https://www.ultrapc.ma" + productUrl;
                         }
 
+                        String promoText = product.select("li.product-flag.discount").text(); // ou autre classe selon ton site
+                        String discountText = product.select("li.product-flag.promo").text();
+
                         // Validate and add product
                         if (!name.isEmpty() && !price.isEmpty() && !price.equals("0,00 MAD")) {
-                            products.add(new ProductItem(name, price, "", imageUrl, productUrl, isAvailable));
+                            products.add(new ProductItem(name, price, imageUrl, productUrl, isAvailable, promoText, discountText));
                         }
                         // In UltraPcScraper.scrapeProducts()
                         Log.d("Scraper", "Parsed product: " + name + " | " + price + " | " + imageUrl);

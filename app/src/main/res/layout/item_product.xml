@@ -1,33 +1,74 @@
-<!-- item_product.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="160dp"
-    android:layout_height="220dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@android:color/white">
 
+        <!-- Promo Container -->
+        <LinearLayout
+            android:id="@+id/promoContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/promoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/etoiles"
+                android:background="@color/red"
+                android:textColor="@color/white"
+                android:padding="2dp"
+                android:textSize="14sp"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/discountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:textColor="@color/white"
+                android:padding="2dp"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <!-- Product Image -->
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="160dp"
+            android:layout_below="@id/promoContainer"
+            android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:contentDescription="Product image"/>
 
+        <!-- Product Title -->
         <TextView
             android:id="@+id/productTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/productImage"
-            android:textSize="14sp"
-            android:padding="4dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/main1"
+            android:textStyle="bold"
             android:maxLines="2"
             android:ellipsize="end"/>
 
+        <!-- Product Price -->
         <TextView
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
@@ -36,6 +77,58 @@
             android:textSize="16sp"
             android:textColor="@color/main2"
             android:textStyle="bold"
-            android:padding="4dp"/>
+            android:layout_marginTop="4dp"/>
+
+
+        <!-- Availability -->
+        <TextView
+            android:id="@+id/productAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productPrice"
+            android:layout_marginTop="6dp"
+            android:text="Produit en stock"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:drawableStart="@drawable/ic_check_circle"
+            android:drawablePadding="4dp"/>
+
+        <TextView
+            android:id="@+id/productAvailability1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productPrice"
+            android:layout_marginTop="6dp"
+            android:text="En rupture"
+            android:textSize="12sp"
+            android:textColor="@color/red"
+            android:drawableStart="@drawable/clear"
+            android:drawablePadding="4dp"
+            android:visibility="gone"/>
+
+        <!-- Add to Cart Button -->
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productPrice"
+            android:layout_marginTop="30dp"
+            android:text="Ajouter au panier"
+            android:backgroundTint="@color/yellow2"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_add_shopping_cart"
+            android:drawablePadding="4dp"/>
+
+        <!-- Quick View Button -->
+        <Button
+            android:id="@+id/quickViewButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addToCartButton"
+            android:layout_marginTop="4dp"
+            android:text="Aperçu rapide"
+            android:backgroundTint="@color/yellow3"
+            android:textColor="@color/black"
+            android:drawablePadding="4dp"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
