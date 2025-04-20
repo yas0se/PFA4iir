@@ -100,8 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/edittext_rounded_bg"
-            android:contentDescription="Search input field"
-            android:hint="Search SouQ"
+            android:hint="@string/search_souq"
             android:imeOptions="actionSearch"
             android:importantForAccessibility="yes"
             android:inputType="text"
@@ -120,7 +119,6 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_rounded_bg"
             android:backgroundTint="@color/yellow"
-            android:contentDescription="Search button"
             android:src="@drawable/ic_baseline_search_24"
             app:tint="@color/black" />
     </LinearLayout>

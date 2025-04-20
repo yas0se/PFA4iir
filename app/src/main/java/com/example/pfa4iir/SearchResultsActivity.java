@@ -2,68 +2,113 @@ package com.example.pfa4iir;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import android.os.Handler;
+import android.os.Looper;
+
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class SearchResultsActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ProductAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private EditText searchInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search_results);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        // Initialiser le RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.productsRecyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // 2 colonnes
+        // Initialize views
+        recyclerView = findViewById(R.id.productsRecyclerView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        searchInput = findViewById(R.id.navSearchKeywords);
+        ImageButton searchButton = findViewById(R.id.navSearchSubmit);
 
-        // Créer la liste des produits
-        List<ProductItem> productList = new ArrayList<>();
-        productList.add(new ProductItem(
-                "1",
-                "Kingston SODIMM 32GB 5600 DDR5 CL40",
-                R.drawable.ram_example,
-                "1 099,00 MAD",
-                "1 199,00 MAD",
-                true,
-                "Promo !",
-                "-100,00 MAD",
-                true,
-                "En stock"
-        ));
-
-        productList.add(new ProductItem(
-                "2",
-                "Disque Dur SSD 1TB",
-                R.drawable.ssd_example,
-                "899,00 MAD",
-                "999,00 MAD",
-                false,
-                null,
-                null,
-                false,
-                "Rupture de stock"
-        ));
-
-        // Définir l'adapteur
-        ProductAdapter adapter = new ProductAdapter(this, productList);
+        // Setup RecyclerView with empty adapter first
+        adapter = new ProductAdapter(new ArrayList<>(), this);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));  // Fixed context reference
         recyclerView.setAdapter(adapter);
 
+// Initial search
+        searchProducts("ordinateur");  // Removed named parameter (query:)
 
+// Button de recherche
+        searchButton.setOnClickListener(v -> {
+            String query = searchInput.getText().toString();
+            if (!query.isEmpty()) {
+                searchProducts(query);
+            }
+        });
+
+        // Pull-to-refresh
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            String query = searchInput.getText().toString();
+            searchProducts(query.isEmpty() ? "ordinateur" : query);
+        });
+    }
+
+    private void searchProducts(String query) {
+        swipeRefreshLayout.setRefreshing(true);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                List<ProductItem> products = UltraPcScraper.scrapeProducts(query);
+
+                handler.post(() -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (products == null || products.isEmpty()) {
+                        showToast("Aucun produit trouvé");
+                        adapter.updateProducts(new ArrayList<>());
+                        // Show an empty state view here if you have one
+                        return;
+                    }
+                    Log.d("Scraper", "Received " + products.size() + " products");
+                    adapter.updateProducts(products);
+                });
+            } catch (Exception e) {
+                handler.post(() -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    showToast("Erreur: " + e.getMessage());
+                    Log.e("Scraper", "Search failed", e);
+                });
+            } finally {
+                executor.shutdown();
+            }
+        });
+    }
+
+
+    private void showToast(String message) {
+        Toast.makeText(SearchResultsActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupRecyclerView(List<ProductItem> products) {
+        runOnUiThread(() -> {
+            if (adapter == null) {
+                adapter = new ProductAdapter(products, SearchResultsActivity.this);
+                recyclerView.setLayoutManager(new GridLayoutManager(SearchResultsActivity.this, 2));
+                recyclerView.setAdapter(adapter);
+            } else {
+                adapter.updateProducts(products);
+            }
+        });
     }
 }

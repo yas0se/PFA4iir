@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PFA4iir</string>
     <string name="see_more">See more</string>
+    <string name="search_input_field">Search input field</string>
+    <string name="search_souq">Search SouQ</string>
+    <string name="no_products_found" >No Products Found</string>
+    <string name="r_sultats_de_recherche">Résultats de recherche</string>
 </resources>

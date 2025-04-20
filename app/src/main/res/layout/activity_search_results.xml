@@ -7,18 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".SearchResultsActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
+    <LinearLayout
+        android:id="@+id/headerWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
@@ -123,289 +119,167 @@
             android:src="@drawable/ic_baseline_search_24"
             app:tint="@color/black" />
     </LinearLayout>
-
-        <!-- Product card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <!-- Product Flags -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Promo !"
-                    android:drawableStart="@drawable/etoiles"
-                    android:background="@color/red"
-                    android:textColor="@color/white"
-                    android:padding="2dp"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="4dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-100,00 MAD"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
-                    android:padding="2dp"
-                    android:textSize="16sp"/>
-            </LinearLayout>
-
-            <!-- Product Image -->
-            <ImageView
-                android:id="@+id/productImage"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/placeholder_product"
-                android:contentDescription="Product image"
-                android:layout_marginBottom="8dp"/>
-
-            <!-- Product Title -->
-            <TextView
-                android:id="@+id/productTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kingston SODIMM 32GB 5600 DDR5 CL40"
-                android:textSize="16sp"
-                android:textColor="@color/main1"
-                android:textStyle="bold"
-                android:layout_marginBottom="4dp"/>
+    </LinearLayout>
 
 
-            <!-- Price Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:id="@+id/productPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 099,00 MAD"
-                    android:textSize="18sp"
-                    android:textColor="@color/main2"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/productOldPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 199,00 MAD"
-                    android:textSize="14sp"
-                    android:textColor="#999999"
-                    android:layout_marginStart="8dp"
-                    android:paintFlags="strike"/>
-            </LinearLayout>
-
-            <!-- Availability -->
-            <TextView
-                android:id="@+id/productAvailability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Produit en stock"
-                android:textSize="12sp"
-                android:textColor="@color/green"
-                android:drawableStart="@drawable/ic_check_circle"
-                android:drawablePadding="4dp"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:id="@+id/productAvailability1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="En rupture maintenant"
-                android:textSize="12sp"
-                android:textColor="@color/red"
-                android:drawableStart="@drawable/baseline_access_time_24"
-                android:drawablePadding="4dp"
-                android:layout_marginBottom="8dp"/>
-
-            <!-- Add to Cart Button -->
-            <Button
-                android:id="@+id/addToCartButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ajouter au panier"
-                android:backgroundTint="@color/yellow2"
-                android:textColor="@color/black"
-                android:drawableStart="@drawable/ic_add_shopping_cart"
-                android:drawablePadding="4dp"/>
-
-            <!-- Quick View Button -->
-            <Button
-                android:id="@+id/quickViewButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aperçu rapide"
-                android:layout_marginTop="4dp"
-                android:backgroundTint="@color/yellow3"
-                android:textColor="@color/black"
-                android:drawableStart="@drawable/ic_visibility"
-                android:drawablePadding="4dp"/>
-
-        </LinearLayout>
+        <!-- Liste avec refresh -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/headerWrapper"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"/>
+            android:padding="8dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+<!--        &lt;!&ndash; Footer Section &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/footer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@android:color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent">-->
 
+<!--            &lt;!&ndash; Top Links &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="TOP OF PAGE"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:background="@color/main2"-->
+<!--                android:textSize="12sp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingBottom="8dp"/>-->
 
+<!--            &lt;!&ndash; Main Links Row 1 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:background="@color/main1"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingBottom="8dp">-->
 
-        <!-- Footer Section -->
-        <LinearLayout
-            android:id="@+id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="SouQ.com"-->
 
-            <!-- Top Links -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TOP OF PAGE"
-                android:textColor="@color/white"
-                android:background="@color/main2"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:paddingBottom="8dp"/>
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:paddingRight="16dp"/>-->
 
-            <!-- Main Links Row 1 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/main1"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:paddingBottom="8dp">
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Your Account"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"/>-->
+<!--            </LinearLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SouQ.com"
+<!--            &lt;!&ndash; Main Links Row 2 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:background="@color/main1"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingBottom="8dp">-->
 
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:paddingRight="16dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Your Lists"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:paddingRight="16dp"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your Account"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Browsing History"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"/>-->
+<!--            </LinearLayout>-->
 
-            <!-- Main Links Row 2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/main1"
-                android:gravity="center"
-                android:paddingBottom="8dp">
+<!--            &lt;!&ndash; Account Actions &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@color/black1"-->
+<!--                android:paddingBottom="16dp">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your Lists"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:paddingRight="16dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Register"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:paddingRight="16dp"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Browsing History"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Sign in"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="14sp"/>-->
+<!--            </LinearLayout>-->
 
-            <!-- Account Actions -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:background="@color/black1"
-                android:paddingBottom="16dp">
+<!--            &lt;!&ndash; Legal Links &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@color/black1"-->
+<!--                android:gravity="center">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Register"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:paddingRight="16dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Conditions of Use"-->
+<!--                    android:textColor="@android:color/darker_gray"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:paddingBottom="4dp"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sign in"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Privacy Notice"-->
+<!--                    android:textColor="@android:color/darker_gray"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:paddingBottom="4dp"/>-->
 
-            <!-- Legal Links -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/black1"
-                android:gravity="center">
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Consumer Health Data Privacy Disclosure"-->
+<!--                    android:textColor="@android:color/darker_gray"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:paddingBottom="4dp"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Conditions of Use"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"
-                    android:paddingBottom="4dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="SouQ without ads"-->
+<!--                    android:textColor="@android:color/darker_gray"-->
+<!--                    android:textSize="12sp"/>-->
+<!--            </LinearLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Privacy Notice"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"
-                    android:paddingBottom="4dp"/>
+<!--        </LinearLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Consumer Health Data Privacy Disclosure"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"
-                    android:paddingBottom="4dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SouQ without ads"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
