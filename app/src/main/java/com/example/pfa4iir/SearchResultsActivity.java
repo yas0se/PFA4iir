@@ -1,5 +1,6 @@
 package com.example.pfa4iir;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,10 +34,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        // Initialize views
-        String initialQuery = getIntent().getStringExtra("search_query");
-        Toast.makeText(this, "testtttt: " + initialQuery, Toast.LENGTH_SHORT).show();
-
 
         recyclerView = findViewById(R.id.productsRecyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
@@ -49,9 +46,16 @@ public class SearchResultsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         Log.i("query è--è--è--: ", searchInput.getText().toString());
-
+        // Handle initial intent data
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("myObjectList")) {
+            List<ProductItem> initialProducts = (List<ProductItem>) intent.getSerializableExtra("myObjectList");
+            if (initialProducts != null && !initialProducts.isEmpty()) {
+                adapter.updateProducts(initialProducts);
+            }
+        }
 // Initial search
-        searchProducts(searchInput.getText().toString());  // Removed named parameter (query:)
+        //searchProducts(searchInput.getText().toString());  // Removed named parameter (query:)
 
 // Button de recherche
         searchButton.setOnClickListener(v -> {

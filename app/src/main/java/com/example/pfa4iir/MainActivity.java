@@ -2,6 +2,9 @@ package com.example.pfa4iir;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -102,13 +108,36 @@ public class MainActivity extends AppCompatActivity {
         String searchQuery = searchEditText.getText().toString().trim();
 
         if (!searchQuery.isEmpty()) {
-            // Exécutez votre logique de recherche ici
-            Toast.makeText(this, "Recherche: " + searchQuery, Toast.LENGTH_SHORT).show();
+            // Show loading indicator
+            Toast.makeText(this, "Recherche en cours...", Toast.LENGTH_SHORT).show();
 
-            // lancement d'une nouvelle activité avec les résultats
-            Intent intent = new Intent(this, SearchResultsActivity.class);
-            intent.putExtra("search_query", searchQuery);
-            startActivity(intent);
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Handler handler = new Handler(Looper.getMainLooper());
+
+            executor.execute(() -> {
+                try {
+                    List<ProductItem> products = UltraPcScraper.scrapeProducts(searchQuery);
+
+                    handler.post(() -> {
+                        if (products == null || products.isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Aucun produit trouvé", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Launch new activity with results
+                        Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                        intent.putExtra("myObjectList", (Serializable) products);
+                        startActivity(intent);
+                    });
+                } catch (Exception e) {
+                    handler.post(() -> {
+                        Toast.makeText(MainActivity.this, "Erreur de recherche: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("MainActivity", "Search failed", e);
+                    });
+                } finally {
+                    executor.shutdown();
+                }
+            });
         } else {
             Toast.makeText(this, "Veuillez entrer un terme de recherche", Toast.LENGTH_SHORT).show();
         }

@@ -12,3 +12,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+.bin
+.lock
+
