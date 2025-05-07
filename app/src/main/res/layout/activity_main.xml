@@ -34,7 +34,7 @@
 
         <!-- Hamburger Menu -->
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/menu"
             android:layout_width="42dp"
             android:layout_height="36dp"
             android:contentDescription="Hamburger Menu"

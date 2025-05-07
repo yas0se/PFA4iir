@@ -119,6 +119,12 @@
             android:src="@drawable/ic_baseline_search_24"
             app:tint="@color/black" />
     </LinearLayout>
+
+        <Spinner
+            android:id="@+id/planets_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 

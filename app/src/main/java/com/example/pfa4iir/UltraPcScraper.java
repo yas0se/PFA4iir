@@ -17,7 +17,7 @@ import okhttp3.Response;
 
 public class UltraPcScraper {
     private static final String TAG = "UltraPcScraper";
-    private static final int MAX_RETRIES = 1;
+    private static final int MAX_RETRIES = 2;
     private static final int TIMEOUT_MS = 30000; // 30 seconds
     private static final String BASE_URL = "https://www.ultrapc.ma";
     private static final String BASE_URL1 = "https://www.nextlevelpc.ma";
@@ -66,6 +66,8 @@ public class UltraPcScraper {
                     if (productElements.isEmpty()) {
                         Log.w(TAG, "No products found with primary selector. Trying fallback selectors...");
                         productElements = doc.select("div.js-product-miniature, div.product-container");
+                    }else {
+                        attempt++;
                     }
 
                     Log.d(TAG, "Found " + productElements.size() + " product elements");
@@ -103,7 +105,7 @@ public class UltraPcScraper {
                                 products.add(new ProductItem(name, price, imageUrl, productUrl, isAvailable, promoText, discountText));
                             }
 
-                            Log.d(TAG, "Parsed product: " + name + " | " + price + " | " + productUrl);
+                            Log.d(TAG, "UltraPc Parsed product: " + name + " | " + price + " | " + productUrl);
 
                         } catch (Exception e) {
                             Log.e(TAG, "Error parsing product", e);
