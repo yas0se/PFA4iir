@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +28,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -102,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                Toast.makeText(MainActivity.this, "nav_home", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.nav_map) {
+                Toast.makeText(MainActivity.this, "nav_map", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.nav_login) {
+                Toast.makeText(MainActivity.this, "nav_login", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return false;
+        });
     }
 
     private void performSearch() {
@@ -141,6 +165,47 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Veuillez entrer un terme de recherche", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.map) {
+            Toast.makeText(this, "map", Toast.LENGTH_SHORT).show();
+            // openMap();
+            return true;
+        } else if (id == R.id.login) {
+            Toast.makeText(this, "login", Toast.LENGTH_SHORT).show(); // Corrected the message
+            // openLogin();
+            return true;
+        } else {
+            Toast.makeText(this, "can't deliver", Toast.LENGTH_SHORT).show();
+            return super.onOptionsItemSelected(item);
+        }
+    }
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//        switch (item.getItemId()) {
+//            case R.id.edit:
+//                editNote(info.id);
+//                return true;
+//            case R.id.delete:
+//                deleteNote(info.id);
+//                return true;
+//            default:
+//                return super.onContextItemSelected(item);
+//        }
+//    }
+
+    private void openMap() {
     }
 
 

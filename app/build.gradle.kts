@@ -55,4 +55,5 @@ dependencies {
         exclude(group = "com.android.support")
     }
     annotationProcessor(libs.glide.compiler) // Required for Glide
+    implementation ("com.google.android.material:material:1.12.0")
 }

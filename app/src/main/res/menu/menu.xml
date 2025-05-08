@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/new_game"
+    <item android:id="@+id/map"
         android:title="Map" />
-    <item android:id="@+id/help"
+    <item android:id="@+id/login"
         android:title="Login" />
 </menu>
