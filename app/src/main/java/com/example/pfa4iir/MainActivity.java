@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_map) {
                 Toast.makeText(MainActivity.this, "nav_map", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
                 return true;
             } else if (itemId == R.id.nav_login) {
                 Toast.makeText(MainActivity.this, "nav_login", Toast.LENGTH_SHORT).show();
