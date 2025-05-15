@@ -1,6 +1,7 @@
 package com.example.pfa4iir;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -70,11 +71,12 @@ public class assistant_virtuel extends AppCompatActivity {
         RequestBody body = RequestBody.create(
                 json.toString(),
                 MediaType.parse("application/json"));
-        String API_URL = "https://generativelanguage.googleapis.com/vibeta/models/gemini-2.0-flash:generateContent?key=" + APIII_KEY;
+        String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + APIII_KEY;
         Request request = new Request.Builder()
                 .url(API_URL)
                 .post(body)
                 .build();
+        Log.i("Request : ", String.valueOf(request));
         new Thread(() -> {
             try (Response response = client.newCall(request).execute()) {
                 if (response.isSuccessful()) {
@@ -85,8 +87,9 @@ public class assistant_virtuel extends AppCompatActivity {
                             .getJSONArray("parts").getJSONObject(0).getString("text");
                     runOnUiThread(()-> txtResponse.setText(text));
                 } else {
+                    runOnUiThread(() -> txtResponse.setText("Erreur : " +response.message()));
+                    Log.e("Erreur : ", response.message());
                 }
-                runOnUiThread(() -> txtResponse.setText("Erreur : " +response.message()));
             } catch (IOException e) {
                 e.printStackTrace();
                 runOnUiThread(()-> txtResponse.setText("Erreur : "+ e.getMessage()));
