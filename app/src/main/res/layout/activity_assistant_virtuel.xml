@@ -2,9 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".assistant_virtuel">
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/prompt"
+        android:hint="Write your prompt here.."
+        android:layout_width="match_parent"
+        android:layout_height="48sp" />
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Envoyer"
+        android:layout_gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/geminianswer"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

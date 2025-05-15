@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_login) {
                 Toast.makeText(MainActivity.this, "nav_login", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, assistant_virtuel.class);
+                startActivity(intent);
                 return true;
             }
             return false;
